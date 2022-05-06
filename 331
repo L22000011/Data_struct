@@ -9,3 +9,20 @@ typedef struct node{
   LinkList h ,p;
   Node *q;
   
+  //首插法
+  /* 动态创建单链表 ， 逆序输入n个数据元素，建立单链表L */
+  void Creat_L1(LinkList &L, int n)
+  {
+  LinkList p;
+  intci;
+  L = (LinkList)malloc(sizeof(Node));
+  L->next = NULL;
+  for(i = n; i > 0; --i)
+  {
+  p = (LinkList)malloc(sizeof(Node));
+  scanf("%d", &p->data);
+  p ->next = L->next;
+  L->next = p;
+  }
+}
+  

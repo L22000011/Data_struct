@@ -19,8 +19,8 @@ typedef struct node{
   L->next = NULL;
   for(i = n; i > 0; --i)
   {
-  p = (LinkList)malloc(sizeof(Node));
-  scanf("%d", &p->data);
+  p = (LinkList)malloc(sizeof(Node));  //申请节点空间
+  scanf("%d", &p->data);    //循环嵌入节点数值
   p ->next = L->next;
   L->next = p;
   }
@@ -28,7 +28,7 @@ typedef struct node{
   
   
   
-  //尾插法  每次用尾巴去衔接下一个节点
+  //尾插法  每次用新的尾巴s去衔接下一个节点
 // “正序”
 void Creat_L2(ListLink &L, int n)
 {

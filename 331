@@ -1,2 +1,11 @@
 //数据结构单链表创建
 //首插法  尾插法
+
+
+//创建结构体
+typedef struct node{
+  ElemType data;
+  struct node *next;}Node, *LinkList;
+  LinkList h ,p;
+  Node *q;
+  

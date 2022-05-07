@@ -34,10 +34,10 @@ Status trans(TSMatrix M, TSMtrix &T)  //T为转置矩阵
 {
     int col,p, k, num[N], cpot[N];
     /*
-    num[col]：矩阵M中第col列中非零元个数
-    cpot[col]：矩阵M中第col列第一个非零元在T.data中位置
-    显然有:   cpot[first]=1;  
-    cpot[col]=cpot[col-1]+ num[col-1]; (2<=col <= M.col_size)
+      num[col]：矩阵M中第col列中非零元个数
+      cpot[col]：矩阵M中第col列第一个非零元在T.data中位置
+    **显然有:   cpot[first]=1;  
+    **cpot[col]=cpot[col-1]+ num[col-1]; (2<=col <= M.col_size)
     */
     T.row_size = M.col_size;    //矩阵行列数先对换
     T.col_size = M.row_size;
@@ -51,12 +51,29 @@ Status trans(TSMatrix M, TSMtrix &T)  //T为转置矩阵
         cpot[0]=0; cpot[1]=1;
         for(col=2; col<=M.col_size;++col )
             cpot[col]=cpot[col-1]+num[col-1];
-        for(p=1;p<=M.num_size; p++ )
-{ 
+        for(p=1;p<=M.num_size; p++ ) { 
     col=M.data[p].j; k=cpot[col];
     T.data[k].i=M.data[p].j; T.data[k];
     T.data[k].e=M.data[p].e; cpot[col];
-}
+    }
     }
     return OK;
 }
+
+
+
+
+/* 稀疏矩阵链式存储 */
+  //节点结构
+typedef struct OLNode{
+    int row, col;    //每个节点存储行，列，值
+    ElemType val;   //down表示同列的下一个非零元，right为同行的下一个
+    struct OLNode *right, *down;
+}OLNode, *OLink;
+
+//十字链表结构
+typedef struct
+{
+    OLink row_head[M], col_head[N];  //结构体 行，列 指针数组
+    int row_size, col_size, num_size;  //行和列数，非零元个数
+}CrosssList;

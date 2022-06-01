@@ -1,3 +1,45 @@
+//顺序表两种实现方式
+
+//1. 静态数组
+#define maxlen 100
+	typedef struct {
+		int elem[maxlen];
+		int length;
+	}SeqList;
+	SeqList L;
+	L.length = n;
+
+	//静态数组的初始化操作
+	int InitList(SeqList& L)
+	{
+		L.length = 0;
+		return OK;
+	}
+
+
+	//2. 指针数组
+#define List_size 100
+#define List_creat 10
+	typedef struct {
+		int* elem;
+		int length;
+		int listsize;
+
+	} SqList;
+	SqList L;
+
+	//指针数组的初始化操作
+	int InitList(SqList & L)
+	{
+		L.elem = (int*)malloc(sizeof(int) * List_size);
+		if (L.elem == 0)  exit(OVERFLOW);
+		L.length = 0;
+		L.listsize = List_size;
+		return OK;
+	}
+
+
+
 //数据结构单链表创建
 //首插法  尾插法
 

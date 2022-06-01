@@ -40,6 +40,31 @@
 
 
 
+
+**********
+指针移动的方法
+typedef struct Node{
+int data;
+struct Node* nex;
+}Node, *LinkList;
+
+LinkList Head;   //头指针
+*pre,*cur, *next;
+pre = Null;   cur = Head->nex;
+{
+next = cur->nex; //指针后移
+cur ->nex = pre;   //前继指针此时和后继指针一致
+pre = cur;   //为前继指针指向自己
+cur = next;   //cur指针指向后继指针的下一个区域，循环可以完成数据的依次插入
+}
+**********
+
+
+
+
+
+
+
 //数据结构单链表创建
 //首插法  尾插法
 

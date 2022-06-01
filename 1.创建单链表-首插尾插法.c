@@ -76,7 +76,7 @@ typedef struct node{
   LinkList h ,p;
   Node *q;
   
-  //首插法    每次都用头节点去衔接
+  //头插法    每次都用头节点去衔接
   /* 动态创建单链表 ， 逆序输入n个数据元素，建立单链表L */
   void Creat_L1(LinkList &L, int n)
   {
@@ -88,8 +88,10 @@ typedef struct node{
   {
   p = (LinkList)malloc(sizeof(Node));  //申请节点空间
   scanf("%d", &p->data);    //循环嵌入节点数值
-  p ->next = L->next;
+   --------------
+  p ->next = L->next;    
   L->next = p;
+   ------------
   }
 }
   

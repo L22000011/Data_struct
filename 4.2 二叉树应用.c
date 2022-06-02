@@ -83,6 +83,31 @@ void InOrderTraversal(BinTree BT)
 
 
 //后序遍历-非递归算法
+/* 最复杂的部分 */
+void PostOrder(BiTree T){
+	InitStack(S);
+	p=T;
+	r=NULL;
+	while(p!=NULL||!IsEmpty(s)){
+		if(p！=NULL){				//走到最左边 
+			push(S,p);
+			p=p->lchild;
+		}
+		else{				//向右
+			GetTop(S,p);	//读栈顶节点（非出栈） 
+			if(p->rchild&&p->rchild!=r){	//若右子树存在，且未被访问过 
+				p=p->rchild;	//转向右 	
+			}
+			else{				//否则弹出结点并访问 
+				pop(S,p);
+				visit(p->data); //访问该结点
+				r=p;			//记录最近访问的结点 
+				p=NULL;			//结点访问完后，重置p指针
+			}
+		}
+	}
+
+
 
 
 

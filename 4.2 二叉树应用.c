@@ -102,6 +102,9 @@ void LevelOrdersal(BinTree BT)
         }
 }
 
+
+/* 层序遍历输出二叉树中的叶子节点 */
+
 void LevelPrint(BinTree BT){
         if(BT){
                 if(!BT->Left && !BT->Right)  //当只有一个根节点是直接输出值

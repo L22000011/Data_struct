@@ -1,3 +1,19 @@
+//递归实现二叉树高度
+
+int Height_Tree(BinTree BT)
+{
+	int HL, HR, MaxH;
+	if(BT){
+		HL = Height_Tree(BT->Left);
+		HR = Height_Tree(BT->Right);
+		MaxH = (HL>HR)? HL : HR;
+		return (MaxH + 1);
+	}
+	else return 0;
+}
+
+
+
 //应用1：静态查找-顺序查找
 int SeSearch(Static *Tbl, ElemType K){
         int i;

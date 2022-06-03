@@ -70,7 +70,7 @@ void DFS(Graphs G,int v){
 }
 
 
-/* DFS广度优先遍历 */
+/* BFS广度优先遍历 */
 int visted[MaxSize];
 void BFSTraverse(Graphs G){
         for(v = 0; v < G.vexnum; ++v)
@@ -78,7 +78,7 @@ void BFSTraverse(Graphs G){
         for(v = 0; v < G.vexnum; ++v)
                 if(!visted[v])  BFS(G,v);
 }
-//DFS
+//BFS
 void BFS(Graphs G,int v)
 {
         int Q[MaxSize], f = 0 ,r = 0;

@@ -73,12 +73,61 @@ L.elem[j-2]=L.elem[j-1];
  return 1;  
  }
 3.掌握循环链表、双向链表的特点，以及相应的运算的实现。 
-
+//创建——插入数据
+int insert_list(list *head){
+    int data;   //插入的数据类型
+    printf("请输入要插入的元素：");
+    scanf("%d",&data);
+  
+    list *node=initlist();
+    node->data=data;
+    //初始化一个新的结点，准备进行链接
+  
+    if(head!=NULL){
+        list *p=head;
+        //找到最后一个数据
+        while(p->next!=head){
+            p=p->next;
+        }
+        p->next=node;
+        node->next=head;
+        return 1;
+    }else{
+        printf("头结点已无元素\n");
+        return 0;
+    }
+  
+}
 4.掌握一元多项式的表示和相加算法（自学）。
 
+typedef struct node{
+int coef;
+int exp ;
+struct node *next;}PNode, *Poly;
+
+Void add(poly &pa,poly &pb)
+{ 
+poly qa,qb,q;
+qa=pa->next;q=pa;qb=pb->next;
+while(qa&&qb)
+if(qa->exp<qb->exp){q=qa;qa=qa->next}
+else if(qa->exp==qb->exp)
+{ sum= qa->coef+qb->coef;
+pb->next=qb->next;
+free(qb);qb=pb->next;
+if(sum==0){ q->next=qa->next;
+free(qa);qa=q->next; }
+else{qa->coef=sum;q=qa;qa=qa->next;}
+}
+else{ pb->next=qb->next;
+qb->next=qa;q->next=qb;
+q=qb;qb=pb->next;}
+if(qb)q->next=qb;
+free(pb);
+}
 
 
-第三章 
+                 第三章 
 栈和队列
 掌握栈和队列的基本概念。
 掌握栈和队列的顺序存储结构、链式存储结构以及基本操作的实现 （算法）。

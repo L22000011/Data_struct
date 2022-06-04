@@ -17,7 +17,12 @@
 typedef struct LinkNode{
     int data;
     struct LinkNode *next;
-}ListNode, *LinkList;
+}*Position, *Link;
+
+typedef struct {
+  Link head, tail;
+  int len;
+}LinkList;
 
 //顺序表（静态数组）
 

@@ -164,15 +164,133 @@ main()
 掌握栈和队列的基本概念。
 
 掌握栈和队列的顺序存储结构、链式存储结构以及基本操作的实现 （算法）。
-
---循环队列（队列的顺序存储结构）
-
 掌握栈和队列的区别 
 
 掌握栈、队列与线性表的区别
 
+//创建顺序栈
+
+typedef struct
+{
+  elemtype data[max_size];
+  int top;  //栈顶指针
+  }SeqStack;
+SeqStack S;
+
+//入栈
+if(s.top<MAXSIZE-1) 
+  s.data[++s.top]=x;
+else printf(“overflow”);
+--循环队列（队列的顺序存储结构）
+//出栈
+if(s.top > 0)
+   s.top--;
+else
+  printf("overFlow")
+
+  
+//链栈
+  typedef struct node{
+    int data ;
+    struct node *next;
+    //直接前驱 }Node, *LinkList;
+    LinkList top;
+    //出栈 
+    if (top) {
+      p=top; 
+      top=top->next;
+      free(p);
+    }
+    //入栈x
+    s=(LinkList)malloc(sizeof(Node)); 
+    s->data=x; 
+    s->next=top;
+    top=s;
+    
+    
+    
+//顺序队列
+struct QNode {
+ElementType Data[ MaxSize ];
+int rear;
+int front;
+}QNode *Queue;  
+ QNode q;   
+    //初始化
+    q.front = 0;
+    q.rear = 0;
+    
+   //入队   
+    void AddQ( Queue PtrQ, ElementType item)
+{ 
+ if ( (PtrQ->rear+1) % MaxSize == PtrQ->front ) {
+ printf(“队列满”); 
+ return;
+ }
+ PtrQ->rear = (PtrQ->rear+1)% MaxSize;
+ PtrQ->Data[PtrQ->rear] = item;
+}
+    
+    
+   //出队
+ElementType DeleteQ ( Queue PtrQ )
+{ 
+ if ( PtrQ->front == PtrQ->rear ) { 
+ printf(“队列空”);
+ return ERROR;
+ } else {
+ PtrQ->front = (PtrQ->front+1)% MaxSize;
+ return PtrQ->Data[PtrQ->front];
+ }
+}
 
 
+
+    
+ 
+ /*链队*/
+ typedef struct Node{
+ ElementType Data;
+ struct Node *Next;
+};
+struct QNode{ /* 链队列结构 */
+ struct Node *rear; /* 指向队尾结点 */
+ struct Node *front; /* 指向队头结点 */
+}; 
+typedef struct QNode *Queue;
+Queue PtrQ;  
+    
+//不带头结点的链式队列出队操作的一个示例：
+ElementType DeleteQ ( Queue PtrQ )
+{ 
+  struct Node *FrontCell; 
+ ElementType FrontElem;
+ if ( PtrQ->front == NULL) {
+ printf(“队列空”); return ERROR;
+ } 
+ FrontCell = PtrQ->front;
+ if ( PtrQ->front == PtrQ->rear) /* 若队列只有一个元素 */
+ PtrQ->front = PtrQ->rear = NULL; /* 删除后队列置为空 */
+ else 
+ PtrQ->front = PtrQ->front->Next;
+ FrontElem = FrontCell->Data;
+ free( FrontCell ); /* 释放被删除结点空间 */
+ return FrontElem; 
+}
+    
+    
+/*练习：
+1.顺序队列怎么解决假溢出？
+牺牲一个存储单元，（rear + 1）% size_queue = front
+2.循环队列怎么解决假溢出？
+牺牲一个存储单元，
+判断队空：
+ rear = front
+判断队满：
+（rear + 1）% size_queue = front
+ */
+   
+   
 第五章 数组和广义表
 掌握数组的定义和存储方式。
 掌握特殊矩阵（对称阵，上三角阵，下三角阵，对角阵）的压缩存 储方法。

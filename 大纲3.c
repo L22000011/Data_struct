@@ -75,7 +75,74 @@ ArcBox *firstin, *firstout;
 4.无向图 临界多重表
 
 
+*********************
+//DFS算法（递归）
+********************
 
+void DFSTraverse(Graphs G)
+{
+        for(v = 0; v < G.vexnum; ++v)
+        /*  vexnum顶点数 */
+                visted[v] = 0;
+                //首先初始化
+        for(v = 0; v < G.vexnum; ++v)
+                if(!visted[v])
+                        DFS(G,v);
+}
+
+void DFS(Graphs G,int v){
+        printf("%d",v);
+        visited[v] = 1;
+        p = G.arc[v].firstarc;
+        /* arc表示结构体数组（包含节点信息，弧） */
+        while(p){
+                i = p->vex;
+                //vex ；该弧所指向的顶点位置
+        /*visted[w]表示一个一维数组 判断是否访问过此节点
+        visted[w] == 1 ，表示已访问，为0表示未访问 */
+                if(visited[i] == 0)
+                        DFS(G,i);
+                p = p->link;
+        }
+}
+
+*********************
+//BFS算法（非递归）
+
+应用
+1.判断从顶点 i 到顶点 s 是否存在简单路径  
+2.判断一个图是否为连通图 
+3.求两个顶点之间的一条路径长度最短的路径
+********************
+/* BFS广度优先遍历 */
+int visted[MaxSize];
+void BFSTraverse(Graphs G){
+        for(v = 0; v < G.vexnum; ++v)
+                visted[v] = 0;
+        for(v = 0; v < G.vexnum; ++v)
+                if(!visted[v])  BFS(G,v);
+}
+//BFS
+void BFS(Graphs G,int v)
+{
+        int Q[MaxSize], f = 0 ,r = 0;
+        printf("%d",v);
+        visted[v] = 1;
+        Q[r++] = v;
+        while(f < r){
+                x = Q[f++];
+                p = G.arc[x].firstarc;
+                while(p){
+                        w = p->vex;
+                        if(visited[w] == 0){
+                                visted[w] = 1;
+                                printf("%d\t",w);
+                                Q[r++] = w;
+                        }
+                p = p->link;
+                }
+        }
+}
 
 
 

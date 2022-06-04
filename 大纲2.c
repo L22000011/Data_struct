@@ -78,6 +78,123 @@ typedef struct BPTree{
 }BPTree;
 
 
+
+//先序遍历(根+左+右)，递归算法 + 非递归算法
+
+/* 递归算法 */
+void PreOrderTraversal(BinTree BT)
+{
+        if(BT){
+                printf("%d", BT->Data);
+                PreOrderTraversal(BT->Left);
+                PreOrderTraversal(BT->Right);
+        }
+}
+
+/* 中序遍历非递归实现（利用堆栈完成）
+   首先往左走，遇到的元素全部压入栈，到底部时停止
+   返回上一个元素，往右走，重读上述步骤，如果没有接着返回
+ */
+void InOrderTraversal(BinTree BT)
+{   //BinTree是二叉树结构体指针类型
+        BinTree T=BT;
+        Stack S = CreatStack(MaxSize);
+        while(T || !IsEmpty(S)){
+                while(T){
+                        Push(S,T);
+                        T = T->Left;
+                }
+                if(!IsEmpty(S)){
+                        T = Pop(S); /*结点弹出堆栈*/
+                        printf(“%5d”, T->Data); /*（访问）打印结点*/
+                        T = T->Right; /*转向右子树*/
+                }
+        }
+}
+
+//先序遍历-非递归算法
+void InOrderTraversal(BinTree BT)
+{   //BinTree是二叉树结构体指针类型
+        BinTree T=BT;
+        Stack S = CreatStack(MaxSize);
+        while(T || !IsEmpty(S)){
+                while(T){
+                        //中序改先序将printf提到此处即可
+                        printf(“%5d”, T->Data); /*（访问）打印结点*/
+                        Push(S,T);
+                        T = T->Left;
+                }
+                if(!IsEmpty(S)){
+                        T = Pop(S); /*结点弹出堆栈*/
+                        
+                        T = T->Right; /*转向右子树*/
+                }
+        }
+}
+
+
+//后序遍历-非递归算法
+/* 最复杂的部分 */
+void PostOrder(BiTree T){
+	InitStack(S);
+	p=T;
+	r=NULL;
+	while(p!=NULL||!IsEmpty(s)){
+		if(p！=NULL){				//走到最左边 
+			push(S,p);
+			p=p->lchild;
+		}
+		else{				//向右
+			GetTop(S,p);	//读栈顶节点（非出栈） 
+			if(p->rchild&&p->rchild!=r){	//若右子树存在，且未被访问过 
+				p=p->rchild;	//转向右 	
+			}
+			else{				//否则弹出结点并访问 
+				pop(S,p);
+				visit(p->data); //访问该结点
+				r=p;			//记录最近访问的结点 
+				p=NULL;			//结点访问完后，重置p指针
+			}
+		}
+	}
+
+
+
+
+
+//  2 层序遍历(队列)
+void LevelOrdersal(BinTree BT)
+{
+        Queue Q;
+        BinTree T;
+        if(!BT) return ;  //空节点直接返回
+        Q = CreatQueue(MaxSize);  //创建Q队列
+        AddQ(Q, BT);
+        while(!IsEmptyQ( Q )){
+                T = Delete(Q);
+                printf("%d", T->Data);
+                if(T->Left) AddQ(Q，T->Left);  //递归算法
+                if(T-=>Right) AddQ(Q, T->Right);
+        }
+}
+
+
+/* 层序遍历输出二叉树中的叶子节点 */
+
+void LevelPrint(BinTree BT){
+        if(BT){
+                if(!BT->Left && !BT->Right)  //当只有一个根节点是直接输出值
+                        printf("%d", BT-> Data);
+                LevelOrdersal(Bt->Left);  //左右节点都存在时进入递归
+                LevelOrdersal(BT->Right);
+        }
+}
+
+
+
+
+
+***************************
 //线索二叉树的建立
 
 //节点创建
@@ -138,8 +255,111 @@ void InOrderThraverse_Thr(BiThrTree p)
 }
 
 
+ 
+//树的非顺序存储映像：
+1. 双亲表示法  2. 孩子表示法  3. 树的二叉链表(孩子-兄弟）存储表示法
 
-第七章 图 
+其中2孩子表示法包含三种：
+1.定长结点的多重链表
+2. 不定长结点的多重链表
+3. 孩子单链表     
+                              
+
+//3. 树的二叉链表(孩子-兄弟）存储表示法   -- 也是树转二叉树的放法
+#define datatype char  //定义二叉树元素的数据类型为字符
+typedef struct  node   //定义结点由数据域，左右指针组成
+{ Datatype data;
+  struct node *lchild,*rchild;
+ }Bitree;
+                              
+                              
+/*森林与二叉树，树的转换*/
+---------------------------------
+  树        二叉树       森林
+后序遍历   先序遍历     先序遍历
+后序遍历   中序遍历     中序遍历
+---------------------------------
+                              
+哈夫曼树建立和方法（不掌握代码）
+                              
+        
+                              
+/*习题：一棵二叉树的繁茂度定义为各层结点数的最大 值与树的高度的乘积。
+用类C语言设计算法求 二叉树的繁茂度。*/
+
+int FanMao(Bitree T) 
+{
+     int count[D];
+     int f=r=0;
+     int k, maxn,i;
+     BTNRecord Q[MAX],p;
+     if(T==NULL) return 0;
+ Q[r].node=T; Q[r++].layer=1;
+ for(k=0;k<D;k++)   count[k]=0;
+ while(f<r) 
+ {
+  p=Q[f++]; count[p.layer]++;
+  if(p.node->lc) {
+   Q[r].node= p.node->lc; 
+   Q[r++].layer= p.layer+1;
+  } 
+  if(p.node->rc)
+  {
+   Q[r].node= p.node->rc; 
+   Q[r++].layer= p.layer+1;
+  } 
+ }
+ h=p.layer;
+ //最后一个访问的结点所在层就是树的高度 
+ for(maxn=count[1],i=2;i<=h;i++) 
+  if(count[i]>maxn) maxn=count[i]; 
+ //求层最大结点数 return h*maxn; 
+}//FanMao
+             
+                              
+                              
+                              
+ 
+2.用类C语言设计算法，判断一棵二叉树是 否为完全二叉树
+
+#define MAX 100 int ss(Bitree T)
+//判断二叉树是否完全二叉树,是则返回1,否则返回0 
+{
+ Bitree Q[MAX],p;
+ int k, f=r=1; 
+ if (T==NULL) return 1; 
+ for (k=1;k<MAX; k++) Q[k]=NULL; 
+ Q[r++]=T; 
+ while(f<r) {
+  p=Q[f];
+  if (!p) return 0;
+  if (p->lc) 
+  {
+   r=2*f; 
+   if(r>=MAX){
+    printf(“overflow”);
+    exit(0);
+   }
+   Q[r++]=p->lc; 
+  } 
+  if (p->rc){
+   r=2*f+1; 
+   if(r>=MAX)
+   {
+    printf(“overflow”);
+    exit(0);
+   }
+   Q[r++]=p->rc;
+  } f++； 
+  }
+ return 1; 
+}
+                              
+                              
+                              
+                              
+                              
+                              第七章 图 
 掌握图的基本概念和术语，掌握图的邻接矩阵和邻接表存储结构，
 了解 图的十字链表和邻接多重链表存储结构。
 掌握图的深度优先搜索和广度优先搜索算法、过程、及其应用，

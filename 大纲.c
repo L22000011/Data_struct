@@ -293,22 +293,89 @@ ElementType DeleteQ ( Queue PtrQ )
    
 第五章 数组和广义表
 掌握数组的定义和存储方式。
+  /*数组本身也是线性表
+  存储方式：行为主序的存储，列为主序的存储*/
 掌握特殊矩阵（对称阵，上三角阵，下三角阵，对角阵）的压缩存 储方法。
+/*对称阵压缩：
+将n^2压缩为n*（n + 1）/2
+
+上三角矩阵：（列主序）
+Loc(aij)= Loc(a11)+((j-1)j/2+i-1)*L
+
+下三角矩阵（行主序）
+Loc(aij)= Loc(a11)+((i-1)i/2+j-1)*L
+
+对角阵-2d+1阵（行为主序）
+·矩阵元素下表从0开始的地址计算公式：
+  Loc(aij)=Loc(a00)+(2d+1)*i-d+j-(i-d)
+·矩阵元素下表从1开始的地址计算公式：
+  Loc(aij)=Loc(a11)+(2d+1)*(i-1)-d+j-i+d
+  = Loc(a11)+(2d+1)*(i-1)+j-i
+*/
 掌握稀疏矩阵的压缩存储方法，
+1.三元组表
+2、行逻辑联接的顺序表（在存储矩阵时比
+ 三元组表多使用了一个数组，专门记录矩阵中每行第一
+  个非 0 元素在一维数组中的位置。）
+3、 十字链表
 了解相应运算(加法、转置)的实现 （稀疏矩阵的快速转置自学）。
 
 
 
+//三元组顺序表
+  typedef struct 
+{ int i, j; //非零元的行、列下标
+ElemType e; //非零元的值
+} Triple;
+#define MAXSIZE 100 //非零元最大个数
+typedef struct
+{ Triple data[MAXSIZE + 1]; 
+//三元组表，data[0]未用
+int mu, nu, tu; //矩阵行、列数、非零元个数
+} TSMatrix;
 
 
 
+/*快速转置  data[0]存储总行，总列，个数*/
+Status fast_transpos ( TSMatrix M, TSMatrix &T ) 
+{ int col,p,k , num[N],cpot[N];
+ T.mu = M.nu;
+ T.nu = M.mu; T.tu = M.tu;
+ if(T.tu)
+{
+   //cpot存储所在列中第一个非零元，num存储所在列的非零元个数
+for(col = 1; col <= M.nu; col++ ) num[col]=0;
+for(p = 1; P <= M.tu; p++) num[M.data[p].j]++;
+cpot[0]=0; cpot[1]=1;
+for(col = 2; col <= M.nu; col++)
+  cpot[col]=cpot[col-1]+num[col-1];
+for(p = 1; p <= M.tu ; p++)
+{ 
+col=M.data[p].j; k=cpot[col];
+T.data[k].i=M.data[p].j; 
+T.data[k].j=M.data[p].i; 
+T.data[k].e=M.data[p].e; cpot[col]++;
+    }
+  }
+return OK:
+}
 
 
 
+/*链式存储-十字链表*/
+typedef struct OLNode
+{ 
+  int row, col; //非零元所在行、列
+ElemType val; //非零元的值
+struct OLNode *right, *down; 
+//同行、同列的下一个非零元
+}OLNode,* OLink ;
 
-
-
-
+typedef struct
+{
+  OLink rhead[M],chead[N]; //行、列指针数组
+  int mu, nu, tu; //行、列数及非零元个数
+}CrossList;
 
 
 

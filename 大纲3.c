@@ -175,13 +175,22 @@ void BFS(Graphs G,int v)
 掌握归并排序的排序算法、排序过程及其性能分析（最好、最坏、平均情况， 稳定性） 
 掌握基数排序的排序过程及其性能分析（时间复杂度，稳定性），及使用条件 
 掌握各种排序方法之间的比较*/
-                  最好       最坏        平均         辅助空间
-直接插入排序
+                   最好        最坏         平均         空间        稳定性   
+                   
+1.直接插入排序      O(n)       O(n^2)        O(n^2)       O(1)        稳定
+2.希尔排序         O(n^1.3)    O(n^2)        O(nlogn)     O(1)       不稳定
+3.二分插入排序     O(log2n)    O(n^2)        O(n^2)       O(1)        稳定
+4.直接选择排序     O(n^2)      O(n^2)        O(n^2)       O(1)       不稳定
+5.堆排序          O(nlogn)     O(nlogn)      O(nlogn)     O(1)       不稳定
+6.冒泡排序          O(n)       O(n^2)        O(n^2)       O(1)        稳定
+7.快速排序         O(nlogn)    O(n^2)        O(nlogn)    O(nlogn)    不稳定
+8.归并排序         O(nlogn)     O(nlogn)     O(nlogn)      O(n)       稳定
+9.基数排序         O(d(r+1))    O(d(r+1))    O(d(r+1))     O(n+r)     稳定
+10.希尔排序         O(n)        O(n^2)       O(n^2)        O(1)       稳定
 
 
 
-
-
+/*不稳定的：希尔排序 + 直接选择排序 + 堆排序 + 快速排序 */ 
 
 
 
@@ -205,11 +214,64 @@ void insret(SqList &L)
                                 L.r[j + 1] = L.r[0];
                         }
                 }  } }
+
+
+/* 简单代码 */
+int InsertSort(int A[], int n) {  /* 自定义函数 InsertSort()*/
+	int i,j;
+	for(i=2; i<=n; i++) { //数组下标从2开始，A[0]做监视哨，A[1]一个数据无可比性
+		A[0]=A[i];    //A[0]为哨兵
+		for(j=i-1; A[0]<A[j]; j--) {
+			A[j+1]=A[j]; 	//元素后移
+		}
+		A[j+1]=A[0];    //将A[j+1] ,即A[i]插入
+	}
+	return 0;
+}
+
+
+2.二分插入排序   --用二分查找方法找出Ri应该插入的 位置，将Ri插入。
+
+void Binsert(SqList &L)
+{
+        int i , low, high, mid;
+        for(i = 2; i < L.lengthl i++)
+                if(L.r[i].key < L.r[r-1].key)
+                {
+                        L.r[0] = L.r[i];
+                        low = 1;
+                        high = i - 1;
+                        while(low <= high)
+                        {
+                                mid = (low + high)/2;
+                                if(L.r[0].key < L.r[mid].key)  high = mid - 1;
+                                else low = mid + 1;
+                        }
+                        for(j = i - 1; j 》= high + 1; j--)
+                                L.r[j++] = L.r[j];
+                        L.r[high + 1] = L.r[o];
+                }
+}
+
                         
-                        
-                        
-                        
-                        
+/* 简单代码 */                        
+  while(left<=right){
+			mid=(left+right)/2;
+			if(temp<a[mid]){
+				//低位
+				right=mid-1;
+			}else{
+			    //高位
+			    left=mid+1;
+		    }
+	   }
+	   //大于插入元素元素后移
+	   for(int j=i-1;j>=left;j--){
+			a[j+1] = a[j];
+		}
+		//插入元素   left or high + 1
+		a[left] = temp;
+}                   
                         
                         
                         

@@ -186,7 +186,7 @@ void BFS(Graphs G,int v)
 7.快速排序         O(nlogn)    O(n^2)        O(nlogn)    O(nlogn)    不稳定
 8.归并排序         O(nlogn)     O(nlogn)     O(nlogn)      O(n)       稳定
 9.基数排序         O(d(r+1))    O(d(r+1))    O(d(r+1))     O(n+r)     稳定
-10.希尔排序         O(n)        O(n^2)       O(n^2)        O(1)       稳定
+10.简单选择排序      O(n)        O(n)       O(n)        O(1)       稳定
 
 
 
@@ -269,18 +269,59 @@ void Binsert(SqList &L)
 	   for(int j=i-1;j>=left;j--){
 			a[j+1] = a[j];
 		}
-		//插入元素   left or high + 1
+		//插入元素left or high + 1
 		a[left] = temp;
 }                   
                         
+
+3.冒泡排序  --每次交换相邻两个
+void mppx(SqList &L)
+{
+	int i; int j = 1, k = 1;
+	while( (j < L.length) && (K > 0) )
+	{
+		k = 0;
+		for(i = 1; i < L.length; i++)
+			if(L.r[i + 1].key < L.r[i].key)
+			{
+				L.r[0] = L.r[i];
+				L.r[i] = L.r[i+1];
+				L.r[i+1] = L.r[0];
+				k++;}
+		j++}
+}
+
+4.快速排序   -- 选第一个做基准（low指针指向第一个， high指向最后一个元素）
+从最后一个开始比较，当high指向大于基准，则不变，小于基准时，将low指向内容改为high指向的
+并且从low开始向high移动
+
+ 
                         
                         
                         
                         
                         
                         
-                        
-                        
+5.简单选择排序
+
+
+int i,j,k，temp;
+for(i=0; i<n-1; i++) //依次遍历序列中每一个元素，进行n-1轮，最后一轮只剩下最后一个元素
+{
+	k = i; //默认该轮的第一个元素是最小值
+	for(j=i+1; j<n; j++) //遍历其余元素
+	{
+		if(arr[j] < arr[k]) //若其余元素有比该轮第一个元素小的，则记录元素下标
+			k = j; //记录元素下标
+	}
+	if(k != i) //进行交换
+	{
+		temp = arr[k];
+		arr[k] = arr[i];
+		arr[i] = temp;
+	}
+}
+
                         
                         
                         

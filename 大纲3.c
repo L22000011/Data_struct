@@ -187,7 +187,7 @@ void BFS(Graphs G,int v)
 8.归并排序         O(nlogn)     O(nlogn)     O(nlogn)      O(n)       稳定
 9.基数排序         O(d(r+1))    O(d(r+1))    O(d(r+1))     O(n+r)     稳定
 10.简单选择排序               O(n^2)                       O(1)       不稳定
-11.树排序                    O(n^2)                       O(1)       不稳定
+11.树排序                    O(nlogn)                       O(1)       不稳定
 
 
 /*不稳定的：希尔排序 + 直接选择排序 + 堆排序 + 快速排序 */ 

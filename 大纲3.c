@@ -186,8 +186,8 @@ void BFS(Graphs G,int v)
 7.快速排序         O(nlogn)    O(n^2)        O(nlogn)    O(nlogn)    不稳定
 8.归并排序         O(nlogn)     O(nlogn)     O(nlogn)      O(n)       稳定
 9.基数排序         O(d(r+1))    O(d(r+1))    O(d(r+1))     O(n+r)     稳定
-10.简单选择排序      O(n)        O(n)       O(n)        O(1)       稳定
-
+10.简单选择排序               O(n^2)                       O(1)       不稳定
+11.树排序                    O(n^2)                       O(1)       不稳定
 
 
 /*不稳定的：希尔排序 + 直接选择排序 + 堆排序 + 快速排序 */ 
@@ -295,12 +295,30 @@ void mppx(SqList &L)
 从最后一个开始比较，当high指向大于基准，则不变，小于基准时，将low指向内容改为high指向的
 并且从low开始向high移动
 
- 
+int partition( SqList L, int l, int h )
+{ 
+	L.r[0]=L.r[l]; 
+	while(l<h) {
+		while(( l < h) && (L.r[h].key >=L.r[0].key) ) h--;
+		if (l < h ) {L.r[l]=L.r[h]; l++;
+			    } 
+		while( (l < h) && (L.r[l] ].key <L.r[0].key )) l++; 
+		if( l < h ) {
+			L.r[h]=L.r[l]; h--;} }L.r[l]=L.r[0]; 
+	return l; } 
                         
                         
+void QSort (SqList &L,int l,int h) 
+{
+	int t; if (l<h)
+	{
+		t = partition( L, l, h);
+		QSort (L, l, t-1); QSort (L, t+1, h);
+	} }
                         
-                        
-                        
+         
+
+
                         
 5.简单选择排序
 
